@@ -25,5 +25,4 @@ public class Cart {
     private Date createdAt;
     private Date updatedAt;
 
-    // getters and setters
 }

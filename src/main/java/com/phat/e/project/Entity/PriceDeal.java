@@ -28,5 +28,4 @@ public class PriceDeal {
     private Date createdAt;
     private Date updatedAt;
 
-    // getters and setters
 }

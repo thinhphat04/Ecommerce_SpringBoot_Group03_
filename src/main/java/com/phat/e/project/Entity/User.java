@@ -23,5 +23,4 @@ public class User {
     private Date createdAt;
     private Date updatedAt;
 
-    // getters and setters
 }

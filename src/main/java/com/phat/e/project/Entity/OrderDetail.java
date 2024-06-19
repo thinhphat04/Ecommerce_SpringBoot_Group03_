@@ -26,5 +26,4 @@ public class OrderDetail {
     private Date createdAt;
     private Date updatedAt;
 
-    // getters and setters
 }

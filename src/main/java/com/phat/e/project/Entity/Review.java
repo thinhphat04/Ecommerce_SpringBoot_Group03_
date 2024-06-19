@@ -26,5 +26,4 @@ public class Review {
     private Date createdAt;
     private Date updatedAt;
 
-    // getters and setters
 }

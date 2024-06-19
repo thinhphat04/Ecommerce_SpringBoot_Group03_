@@ -28,6 +28,4 @@ public class Product {
     private Date createdAt;
     private Date updatedAt;
 
-
-    // Getters and Setters
 }
