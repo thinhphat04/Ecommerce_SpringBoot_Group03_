@@ -8,28 +8,23 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "carts")
-public class Carts {
+@Document(collection = "orderDetails")
+public class OrderDetail {
     @Id
     private String id;
     @DBRef
-    private User customerId;
-    private List<ProductQuantity> products;
+    private Order order;
+    @DBRef
+    private Product product;
+    private int quantity;
+    private float price;
     private Date createdAt;
     private Date updatedAt;
-
-    // getters and setters
-}
-
-class ProductQuantity {
-    @DBRef
-    private Product productId;
-    private int quantity;
 
     // getters and setters
 }

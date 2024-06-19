@@ -12,15 +12,19 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "orders")
-public class Order {
+@Document(collection = "reviews")
+public class Review {
     @Id
     private String id;
-    private Date orderDate;
+    @DBRef
+    private Product product;
     @DBRef
     private User customer;
-    private float totalAmount;
-    private String shippingAddress;
+    private int rating;
+    private String comment;
+    private Date reviewDate;
     private Date createdAt;
     private Date updatedAt;
+
+    // getters and setters
 }

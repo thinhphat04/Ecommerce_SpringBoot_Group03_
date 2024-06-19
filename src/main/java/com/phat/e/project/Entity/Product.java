@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
@@ -16,14 +17,17 @@ public class Product {
     private String id;
     private String productName;
     private String description;
-    private double price;
-    private int inventories;
-    private String categoryId;
-    private String sellerId;
+    private int price;
+    private int quantity;
+    @DBRef
+    private Category category;
+    @DBRef
+    private User seller;
     private Date dateAdded;
-    private String status;
+    private boolean status;
     private Date createdAt;
     private Date updatedAt;
+
 
     // Getters and Setters
 }

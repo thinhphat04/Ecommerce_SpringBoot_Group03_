@@ -9,18 +9,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "orders")
-public class Order {
+@Document(collection = "priceDeals")
+public class PriceDeal {
     @Id
     private String id;
-    private Date orderDate;
+    @DBRef
+    private Product product;
     @DBRef
     private User customer;
-    private float totalAmount;
-    private String shippingAddress;
+    private float proposedPrice;
+    private String status;
+    @DBRef
+    private User admin;
     private Date createdAt;
     private Date updatedAt;
+
+    // getters and setters
 }
