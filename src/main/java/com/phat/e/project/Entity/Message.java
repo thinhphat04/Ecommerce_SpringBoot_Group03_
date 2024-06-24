@@ -8,9 +8,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Document(collection = "messages")
-public class Message {
-    @Id
-    private String id;
+public class Message extends BaseEntity {
+   ;
     @DBRef
     private User sender;
     @DBRef
@@ -18,7 +17,6 @@ public class Message {
     private String content;
     private Date timestamp;
     private boolean isRead;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
 
 }
