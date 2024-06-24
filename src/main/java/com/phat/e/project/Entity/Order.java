@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -16,11 +17,11 @@ import java.util.Date;
 public class Order {
     @Id
     private String id;
-    private Date orderDate;
+    private LocalDateTime orderDate;
     @DBRef
     private User customer;
     private float totalAmount;
     private String shippingAddress;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

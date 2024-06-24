@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -20,7 +22,7 @@ public class User {
     private String phoneNumber;
     private String address;
     private String role;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

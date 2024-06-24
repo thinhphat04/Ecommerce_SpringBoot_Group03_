@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -22,8 +23,8 @@ public class Review {
     private User customer;
     private int rating;
     private String comment;
-    private Date reviewDate;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime reviewDate;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
