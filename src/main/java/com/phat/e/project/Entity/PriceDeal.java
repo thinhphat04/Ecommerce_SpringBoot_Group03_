@@ -3,12 +3,9 @@ package com.phat.e.project.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Data
@@ -16,8 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Document(collection = "priceDeals")
 public class PriceDeal {
-    @Id
-    private String id;
+
     @DBRef
     private Product product;
     @DBRef
@@ -26,7 +22,6 @@ public class PriceDeal {
     private String status;
     @DBRef
     private User admin;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
 
 }
