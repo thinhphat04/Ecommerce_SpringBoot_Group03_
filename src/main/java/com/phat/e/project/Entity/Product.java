@@ -20,8 +20,6 @@ public class Product extends BaseEntity {
     private String PublicId;
     @DBRef
     private Category category;
-    @DBRef
-    private User seller;
     private LocalDateTime dateAdded;
     private boolean status;
 

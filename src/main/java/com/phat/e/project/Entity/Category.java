@@ -15,6 +15,4 @@ public class Category extends BaseEntity {
     private String categoryName;
 
     private String status;
-
-
 }

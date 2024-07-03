@@ -46,7 +46,8 @@ public class AuthSecurityConfig {
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
-                );
+                )
+                .csrf(AbstractHttpConfigurer::disable); //Disabled cai nay, sau khi hoan tat log in
 //		.csrf((csrf) -> csrf
 //	            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //	            .csrfTokenRequestHandler(requestHandler)

@@ -13,16 +13,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "users")
-public class User {
-    @Id
-    private String id;
+public class User extends BaseEntity {
+
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
     private String address;
     private String role;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

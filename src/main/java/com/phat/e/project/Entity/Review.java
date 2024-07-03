@@ -1,5 +1,7 @@
 package com.phat.e.project.Entity;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,9 @@ public class Review extends BaseEntity{
     private Product product;
     @DBRef
     private User customer;
+    @Min(1)
+    @Max(5)
     private int rating;
     private String comment;
     private LocalDateTime reviewDate;
-
-
 }

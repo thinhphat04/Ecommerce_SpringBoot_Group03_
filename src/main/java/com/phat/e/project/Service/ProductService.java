@@ -1,7 +1,9 @@
 package com.phat.e.project.Service;
 
 import com.phat.e.project.Entity.Product;
+import com.phat.e.project.Repository.CategoryRepository;
 import com.phat.e.project.Repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,10 +14,13 @@ import java.util.Optional;
 @Service
 public class ProductService implements IProductService {
     LocalDateTime now = LocalDateTime.now();
-    private final ProductRepository productRepository;
+    ProductRepository productRepository;
+     CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    @Autowired
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -30,9 +35,13 @@ public class ProductService implements IProductService {
 
     @Override
     public Product createProduct(Product product) {
+        // Check if category is valid
+        if (product.getCategory() == null || !categoryRepository.existsById(product.getCategory().getId())) {
+            throw new IllegalArgumentException("Invalid category.");
+        }
         product.setDateAdded(now);
-        product.setCreatedAt(now);
-        product.setUpdatedAt(now);
+        product.setCreatedAt(LocalDateTime.now());
+        product.setUpdatedAt(LocalDateTime.now());
         return productRepository.save(product);
     }
 
@@ -41,12 +50,16 @@ public class ProductService implements IProductService {
         Optional<Product> existingProduct = productRepository.findById(id);
         if (existingProduct.isPresent()) {
             Product product = existingProduct.get();
+            // Check if category is valid
+            if (updatedProduct.getCategory() == null || !categoryRepository.existsById(updatedProduct.getCategory().getId())) {
+                throw new IllegalArgumentException("Invalid category.");
+            }
+
             product.setProductName(updatedProduct.getProductName());
             product.setDescription(updatedProduct.getDescription());
             product.setPrice(updatedProduct.getPrice());
             product.setQuantity(updatedProduct.getQuantity());
             product.setCategory(updatedProduct.getCategory());
-            product.setSeller(updatedProduct.getSeller());
             product.setStatus(updatedProduct.isStatus());
             product.setUpdatedAt(now);
 
@@ -57,13 +70,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product deleteProduct(String id) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isPresent()) {
-            productRepository.delete(product.get());
-            return product.get();
+    public boolean deleteProduct(String id) {
+        Optional<Product> existingProduct = productRepository.findById(id);
+        if (existingProduct.isPresent()) {
+            productRepository.delete(existingProduct.get());
+            return true;
         } else {
-            return null;
+            throw new IllegalArgumentException("Product not found with ID: " + id);
         }
+    }
+    @Override
+    public List<Product> findByProductName(String productName){
+        return productRepository.findByProductName(productName);
     }
 }
