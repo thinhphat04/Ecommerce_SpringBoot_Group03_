@@ -10,5 +10,6 @@ public interface ICartService {
     List<Cart> GetCartsByProductID(String userId);
     boolean DeleteCart(String userId, String productId);
     Cart GetCartDetailId(String userId, String productId);
+    List<Cart> getAllCart();
 //    boolean DeleteCartByBouquetId(String bouquetId);
 }

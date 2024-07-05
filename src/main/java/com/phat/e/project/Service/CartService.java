@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService implements ICartService{
@@ -16,19 +17,30 @@ public class CartService implements ICartService{
         this.cartRepository = cartRepository;
     }
 
+//    @Override
+//    public Cart AddCart(Cart cart) {
+//        Cart oldcart = cartRepository.findById(cart.getId()).orElse(null);
+//
+//        if(oldcart != null){
+//            oldcart.setQuantity(oldcart.getQuantity() + cart.getQuantity());
+//            return cartRepository.save(oldcart);
+//        }
+//        return cartRepository.save(cart);
+//    }
     @Override
     public Cart AddCart(Cart cart) {
-        Cart oldcart = cartRepository.findById(cart.getId()).orElse(null);
-        if(oldcart != null){
-            oldcart.setQuantity(oldcart.getQuantity() + cart.getQuantity());
-            return cartRepository.save(oldcart);
+        Cart existingCart = cartRepository.findByCustomer_IdAndProduct_Id(cart.getCustomer().getId(), cart.getProduct().getId());
+        if (existingCart != null) {
+            existingCart.setQuantity(existingCart.getQuantity() + cart.getQuantity());
+            return cartRepository.save(existingCart);
+        } else {
+            return cartRepository.save(cart);
         }
-        return cartRepository.save(cart);
     }
 
     @Override
     public List<Cart> GetCartsByUserID(String userId) {
-        return cartRepository.findByUserId(userId);
+        return cartRepository.findByCustomerId(userId);
     }
 
     @Override
@@ -49,6 +61,11 @@ public class CartService implements ICartService{
     @Override
     public Cart GetCartDetailId(String userId, String productId) {
         return cartRepository.findByCustomer_IdAndProduct_Id(userId, productId);
+    }
+
+    @Override
+    public List<Cart> getAllCart() {
+        return cartRepository.findAll();
     }
 
 

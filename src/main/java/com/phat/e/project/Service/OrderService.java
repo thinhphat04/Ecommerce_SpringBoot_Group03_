@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,13 @@ public class OrderService implements IOrderService {
     @Override
     public Order AddOrder(Order order) {
         try {
-            List<Cart> listCart = cartRepository.findByUserId(order.getCustomer().getId());
+            List<Cart> listCart = cartRepository.findByCustomerId(order.getCustomer().getId());
+            // Kiểm tra nếu customer không có giỏ hàng
+            if (listCart.isEmpty()) {
+                throw new RuntimeException("No items in cart for customer");
+            }
             List<OrderDetail> orderDetails = new ArrayList<>();
+            float totalAmount = 0;
 
             for (Cart cart : listCart) {
                 OrderDetail details = new OrderDetail();
@@ -40,7 +46,12 @@ public class OrderService implements IOrderService {
                 details.setPrice(cart.getProduct().getPrice());
                 details.setOrder(order); // Set the reference to the order
                 orderDetails.add(details);
+
+                totalAmount += (float) (cart.getQuantity() * cart.getProduct().getPrice());
             }
+
+            order.setTotalAmount(totalAmount);
+            order.setOrderDate(LocalDateTime.now());
 
             orderRepository.save(order);
             orderDetailRepository.saveAll(orderDetails);
@@ -54,6 +65,7 @@ public class OrderService implements IOrderService {
             throw new RuntimeException("Failed to add order", ex);
         }
     }
+
 
     @Override
     public List<Order> ShowOrderByUserId(String userId) {
