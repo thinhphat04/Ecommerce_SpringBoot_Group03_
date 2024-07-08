@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,11 +17,13 @@ public class Cart {
     @Id
     private String id;
     @DBRef
-    private User customer;
-    @DBRef
     private Product product;
     private int quantity;
-    private Date createdAt;
-    private Date updatedAt;
-
+    private String selectedSize;
+    private String selectedColour;
+    private String productName;
+    private String productImage;
+    private double productPrice;
+    private Date reservationExpiry;
+    private boolean reserved;
 }

@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,17 +16,20 @@ import java.util.Date;
 public class Product {
     @Id
     private String id;
-    private String productName;
+    private String name;
     private String description;
-    private int price;
-    private int quantity;
+    private double price;
+    private double rating;
+    private List<String> colours;
+    private String image;
+    private List<String> images;
+    @DBRef
+    private List<Review> reviews;
+    private int numberOfReviews;
+    private List<String> sizes;
     @DBRef
     private Category category;
-    @DBRef
-    private User seller;
+    private String genderAgeCategory;
+    private int countInStock;
     private Date dateAdded;
-    private boolean status;
-    private Date createdAt;
-    private Date updatedAt;
-
 }
